@@ -1,0 +1,16 @@
+HOW-TO import all te files into your project (Eclipse IDE)
+=============================================================
+
+As a starting point, you are given a file archive (.tgz) containing some java files.
+This is how to import them into your Eclipse environnement :
+
+1) Extract the archive into your working directory : 
+tar xvf thisArchive.tgz
+
+2) Launch Eclipse and create a new Java project
+
+3) Import all the files into your src source folder :
+Import ... -> File System : select all the sub-folders in the src folder of the decompressed archive
+*WARNING* : don't select / deselect the option "create top-level folder" 
+
+
