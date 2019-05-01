@@ -8,4 +8,6 @@ import exceptions.BadEntryException;
 import exceptions.MemberAlreadyExistsException;
 import exceptions.NotTestReportException;
 
-public class AddIte
+public class AddItemBookTest{
+	
+}
