@@ -25,6 +25,11 @@ public class SocialNetworkTest {
 			tr = AddMemberTest.test();
 			testSuiteReport.add(tr);
 			System.out.println("\n\n **********************************************************************************************\n");
+			
+			tr = AddItemBookTest.test();
+			testSuiteReport.add(tr);
+			System.out.println("\n\n **********************************************************************************************\n");
+			
 			//
 			// TODO : calls to other tests have to be added from here
 			//
