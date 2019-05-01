@@ -124,7 +124,7 @@ public class ReviewItemBookTest{
 
 		System.out.println("Testing reviewItemBook()");
 
-		// <=> test n°1
+		// <=> test nÂ°1
 
 		// check if incorrect parameters cause reviewItemBook() to throw BadEntry
 		// exception
@@ -165,7 +165,7 @@ public class ReviewItemBookTest{
 		nbErrors += reviewItemBookBadEntryTest(sn, "login", "password", "un titre",4,null, "4.9",
 				"reviewItemBooks() doesn't reject null comments");
 
-		// <=> test n°2
+		// <=> test nÂ°2
 		//populate with 1 member
 /*
 		nbTests++;
@@ -175,7 +175,7 @@ public class ReviewItemBookTest{
 		catch(Exception e) {System.out.println("User not created!!");};
 		
 		nbTests++;
-		nbErrors += reviewItemBookNotMemberTest(sn, "Unregistered", "bbbb","titre",3,"comment", "5.1",
+		nbErrors += reviewItemBookNotMemberTest(sn, "Unregistered", "a password","titre",3,"comment", "5.1",
 				"reviewItemBook does not reject unregistered members");
 		
 		nbTests++;
@@ -184,7 +184,7 @@ public class ReviewItemBookTest{
 		
 		
 		
-		// <=> test n°3
+		// <=> test nÂ°3
 		nbTests++;
 		nbErrors += reviewItemBookOKTest(sn, "A new member", "a password","un titre",3,"un commentaire", "6.0");
 		
