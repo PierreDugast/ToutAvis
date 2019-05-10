@@ -198,7 +198,7 @@ public class AddItemBookTest{
 				+ " does not reject existing books");
 		
 		nbTests++;
-		nbErrors+=addItemBookAlreadyExistsTest(sn,"A new member","a password","un       titre","un genre","un auteur",200,"3.3","addItemBook"
+		nbErrors+=addItemBookAlreadyExistsTest(sn,"A new member","a password","    un titre    ","un genre","un auteur",200,"3.3","addItemBook"
 				+ " does not reject existing books");
 		
 		
