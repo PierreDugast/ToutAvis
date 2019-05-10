@@ -55,5 +55,10 @@ public class ItemBook extends Item {
 	public void setNbPages(int nbPages) {
 		this.nbPages = nbPages;
 	}
+	
+	public String toString(){
+		String retour=super.toString()+" --Auteur  : " + getAuthor() + " --Nombre de Pages : " + getNbPages();
+		return retour;
+	}
 
 }

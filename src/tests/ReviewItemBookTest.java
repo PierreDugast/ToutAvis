@@ -75,13 +75,13 @@ public class ReviewItemBookTest{
 		try {
 			sn.reviewItemBook(login, password, title, mark, comment);
 			System.out.println("Err " + testId + " : " + errorMessage);
-			if (sn.nbBooks() != nbBooks) { 
-				System.out.println("Err " + testId+ " : the number of books (" + nbBooks+ ") was not incremented"); 
+			if (sn.nbBooks() == nbBooks+1) { 
+				System.out.println("Err " + testId+ " : the number of books (" + nbBooks+ ") was  incremented"); 
 				return 1; 
 			} 
 			else return 0; 
 		} 
-		
+		catch(NotItemException e){return 0;}
 		catch (Exception e) {
 			System.out.println("Err " + testId + " : unexpected exception " + e); 
 			e.printStackTrace(); 
@@ -96,8 +96,8 @@ public class ReviewItemBookTest{
 		int nbBooks = sn.nbBooks(); 
 		try {
 			sn.reviewItemBook(login, password, title, mark, comment);
-			if (sn.nbBooks() != nbBooks + 1) { 
-				System.out.println("Err " + testId+ " : the number of books (" + nbBooks+ ") was not incremented"); 
+			if (sn.nbBooks() == nbBooks + 1) { 
+				System.out.println("Err " + testId+ " : the number of books (" + nbBooks+ ") was  incremented"); 
 				return 1; 
 			} 
 			
@@ -115,6 +115,10 @@ public class ReviewItemBookTest{
 	public static TestReport test(){
 
 		ISocialNetwork sn = new SocialNetwork();
+		try{sn.addMember("A new member", "a password", "test profile");}
+		catch(Exception e) {System.out.println("User not created!!");};
+		try{sn.addItemBook("A new member", "a password", "un titre","un genre","auteur",15);}
+		catch(Exception e) {System.out.println("lIVRE NON AJOUTÉ !!");};
 		int nbBooks = sn.nbBooks(); // number of books in 'sn' (should be 0
 		// here)
 		int nbFilms = sn.nbFilms(); // number of films in 'sn' (should be 0
@@ -171,8 +175,7 @@ public class ReviewItemBookTest{
 		nbTests++;
 		nbErrors += reviewItemBookOKTest(sn, "BBBB", "bbbb","titre",3,"comment", "5.0");
 		*/
-		try{sn.addMember("A new member", "a password", "test profile");}
-		catch(Exception e) {System.out.println("User not created!!");};
+
 		
 		nbTests++;
 		nbErrors += reviewItemBookNotMemberTest(sn, "Unregistered", "a password","titre",3,"comment", "5.1",

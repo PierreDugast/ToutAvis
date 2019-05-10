@@ -2,17 +2,21 @@ package opinion;
 
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 public abstract class Item {
 
 	public Item(String title,String kind){
 		this.title=title;
 		this.kind=kind;
+		reviews=new LinkedList<Review>();
 	}
 	/** 
 	 * @uml.property name="title"
 	 */
 	protected String title;
+	
+	protected int nbReviews=0;
 
 	/** 
 	 * Getter of the property <tt>title</tt>
@@ -59,14 +63,14 @@ public abstract class Item {
 	 * @uml.property name="review"
 	 * @uml.associationEnd multiplicity="(0 -1)" inverse="item:Review"
 	 */
-	private Collection reviews;
+	private LinkedList<Review> reviews;
 
 	/** 
 	 * Getter of the property <tt>review</tt>
 	 * @return  Returns the review.
 	 * @uml.property  name="review"
 	 */
-	public Collection getReviews() {
+	public LinkedList<Review> getReviews() {
 		return reviews;
 	}
 
@@ -75,7 +79,7 @@ public abstract class Item {
 	 * @param review  The review to set.
 	 * @uml.property  name="review"
 	 */
-	public void setReviews(Collection reviews_) {
+	public void setReviews(LinkedList<Review> reviews_) {
 		this.reviews = reviews_;
 	}
 	
@@ -84,8 +88,15 @@ public abstract class Item {
 		return mark;
 	}
 	
-	public void addNewMark(float newMark){
-		
+	public void addReview(Review r ){
+		reviews.add(r);
+		nbReviews++;
+		mark=(mark*(nbReviews-1)+r.getMark())/nbReviews;
+	}
+	
+	public String toString(){
+		String retour="--Titre : " + getTitle() + " --Genre : " + getKind()+" --Note attribuée : "+getMark();
+		return retour;
 	}
 	
 }

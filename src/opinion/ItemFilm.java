@@ -77,5 +77,8 @@ public class ItemFilm extends Item {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-
+	public String toString(){
+		String retour=super.toString()+" --Director : " + getDirector() + " --Scenariste  : " + getScenarist()+" --Durée : "+getDuration()+" heures";
+		return retour;
+	}
 }

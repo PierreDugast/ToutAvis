@@ -18,13 +18,15 @@ public class SocialNetwork implements ISocialNetwork {
 
 	private int nbMembers = 0;
 	private int nbItems = 0;
-	private int nbBooks=0;
-	private int nbFilms=0;
+	private int nbBooks = 0;
+	private int nbFilms = 0;
+
 	public SocialNetwork() {
 		members = new LinkedList<Member>();
-		items=new LinkedList<Item>();
+		items = new LinkedList<Item>();
 
 	}
+
 	@Override
 	public int nbMembers() {
 		// TODO Auto-generated method stub
@@ -50,14 +52,14 @@ public class SocialNetwork implements ISocialNetwork {
 		if (login == null || login.trim().length() < 1 || login.trim() == ""
 				|| password == null || password.trim() == ""
 				|| password.trim().length() < 4 || profile == null) {
-			throw new BadEntryException("The input is not correct");
+			throw new BadEntryException("The input is not correct  at addMember()");
 		}
 
 		else {
 
 			int i = 0;
 			for (i = 0; i < nbMembers
-					&& members.get(i).getLogin().trim()
+					&& members.get(i).getLogin().trim() //Testing the existence of the member
 							.compareToIgnoreCase(login.trim()) != 0; i++)
 				;
 			if (i == nbMembers) {
@@ -79,43 +81,44 @@ public class SocialNetwork implements ISocialNetwork {
 			ItemFilmAlreadyExistsException {
 		if (login == null || login.trim().length() < 1 || login.trim() == ""
 				|| password == null || password.trim() == ""
-				|| password.trim().length() < 4 || 
-				title==null || title.trim().length()<1||
-				kind==null ||director==null ||
-				scenarist==null || duration <=0)
-			throw new BadEntryException("The input is not correct");
-		
-		
-		else{
-			
+				|| password.trim().length() < 4 || title == null
+				|| title.trim().length() < 1 || kind == null
+				|| director == null || scenarist == null || duration <= 0)
+			throw new BadEntryException("The input is not correct at addItemFilm()");
+
+		else {
+
 			int i;
-			for(i=0;i<nbMembers() && members.get(i).getLogin().trim().compareToIgnoreCase(login)!=0;i++);
-			if(i==nbMembers){
-				throw new NotMemberException("The member "+login+" already exists !!");
+			for (i = 0; i < nbMembers()
+					&& members.get(i).getLogin().trim()
+							.compareToIgnoreCase(login) != 0; i++)
+				;
+			if (i == nbMembers) {
+				throw new NotMemberException("The member " + login
+						+ " does not exist !!");
 			}
-			
-			else{
-				for(i=0;i<nbMembers() && members.get(i).getLogin().trim().compareToIgnoreCase(login)!=0;i++);
-				if(i==nbMembers){
-					throw new NotMemberException("The member "+login+" already exists !!");
-				}
+
+			else {
 				
-				else{
-					if(members.get(i).getPassword()!=password) throw new NotMemberException("The member "+login+" entered wrong password");
-					for(i=0;i<nbItems && items.get(i).getTitle().trim().compareToIgnoreCase(title.trim())!=0;i++);
-					if(i==nbItems){
+					if (members.get(i).getPassword() != password)
+						throw new NotMemberException("The member " + login
+								+ " entered wrong password");
+						
+					for (i = 0; i < nbItems
+							&& items.get(i).getTitle().trim()
+									.compareToIgnoreCase(title.trim()) != 0; i++)
+						;
+					if (i == nbItems) {
 						nbItems++;
 						nbFilms++;
-						items.add(new ItemFilm(title,kind,director,scenarist,duration));
-					}
-					else throw new ItemFilmAlreadyExistsException();
-					
-					
-				}
+						items.add(new ItemFilm(title, kind, director,
+								scenarist, duration));
+					} else
+						throw new ItemFilmAlreadyExistsException();
+
+				
 			}
-			
-			
-			
+
 		}
 		// TODO Auto-generated method stub
 
@@ -127,34 +130,41 @@ public class SocialNetwork implements ISocialNetwork {
 			NotMemberException, ItemBookAlreadyExistsException {
 		if (login == null || login.trim().length() < 1 || login.trim() == ""
 				|| password == null || password.trim() == ""
-				|| password.trim().length() < 4 || 
-				title==null || title.trim().length()<1||
-				kind==null ||author==null ||
-				nbPages<=0) {
-			throw new BadEntryException("The input is not correct");
+				|| password.trim().length() < 4 || title == null
+				|| title.trim().length() < 1 || kind == null || author == null
+				|| nbPages <= 0) {
+			throw new BadEntryException("The input is not correct at addItemBook()");
 		}
-		
-		else{
+
+		else {
 			int i;
-			for(i=0;i<nbMembers() && members.get(i).getLogin().trim().compareToIgnoreCase(login)!=0;i++);
-			if(i==nbMembers){
-				throw new NotMemberException("The member "+login+" already exists !!");
+			for (i = 0; i < nbMembers()
+					&& members.get(i).getLogin().trim()
+							.compareToIgnoreCase(login) != 0; i++)
+				;
+			if (i == nbMembers) {
+				throw new NotMemberException("The member " + login
+						+ " does not exist !");
 			}
-			
-			else{
-				if(members.get(i).getPassword()!=password) throw new NotMemberException("The member "+login+" entered wrong password");
-				for(i=0;i<nbItems && items.get(i).getTitle().trim().compareToIgnoreCase(title.trim())!=0;i++);
-				if(i==nbItems){
+
+			else {
+				if (members.get(i).getPassword() != password)
+					throw new NotMemberException("The member " + login
+							+ " entered wrong password");
+				for (i = 0; i < nbItems
+						&& items.get(i).getTitle().trim()
+								.compareToIgnoreCase(title.trim()) != 0; i++)
+					;
+				if (i == nbItems) {
 					nbItems++;
 					nbBooks++;
-					items.add(new ItemBook(title,kind,author,nbPages));
-				}
-				else throw new ItemBookAlreadyExistsException();
-				
-				
+					items.add(new ItemBook(title, kind, author, nbPages));
+				} else
+					throw new ItemBookAlreadyExistsException();
+
 			}
 		}
-		
+
 		// TODO Auto-generated method stub
 
 	}
@@ -163,7 +173,45 @@ public class SocialNetwork implements ISocialNetwork {
 	public float reviewItemFilm(String login, String password, String title,
 			float mark, String comment) throws BadEntryException,
 			NotMemberException, NotItemException {
-		// TODO Auto-generated method stub
+		if (login == null || login.trim().length() < 1 || login.trim() == ""
+				|| password == null || password.trim() == ""
+				|| password.trim().length() < 4 || title == null
+				|| title.trim().length() < 1 || mark < 0 || mark > 5
+				|| comment == null) {
+			throw new BadEntryException("The input is not correct at reviewItemBook()");
+		}
+
+		else {
+			int i;
+			for (i = 0; i < nbMembers()
+					&& members.get(i).getLogin().trim()
+							.compareToIgnoreCase(login) != 0; i++)
+				;
+			if (i == nbMembers) {
+				throw new NotMemberException("The member " + login
+						+ " does not exist !!");
+			}
+
+			else {
+				if (members.get(i).getPassword() != password)
+					throw new NotMemberException("The member " + login
+							+ " entered wrong password");
+				int j;
+				for (j = 0; j < nbItems
+						&& items.get(j).getTitle().trim()
+								.compareToIgnoreCase(title.trim()) != 0; j++)
+					;
+				if (j == nbItems)
+					throw new NotItemException("The Item " + title
+							+ " does not exist!!");
+				else {
+					Review r=new Review(members.get(i),mark,comment,items.get(j));
+					items.get(j).addReview(r);
+				}
+
+			}
+		}
+
 		return 0;
 	}
 
@@ -174,69 +222,62 @@ public class SocialNetwork implements ISocialNetwork {
 		// TODO Auto-generated method stub
 		if (login == null || login.trim().length() < 1 || login.trim() == ""
 				|| password == null || password.trim() == ""
-				|| password.trim().length() < 4 || 
-				title==null || title.trim().length()<1 ||
-				mark<0 || mark >5||
-				comment==null) {
-			throw new BadEntryException("The input is not correct");
+				|| password.trim().length() < 4 || title == null
+				|| title.trim().length() < 1 || mark < 0 || mark > 5
+				|| comment == null) {
+			throw new BadEntryException("The input is not correct at reviewItemBook()");
 		}
-		
-		else{
+
+		else {
 			int i;
-			for(i=0;i<nbMembers() && members.get(i).getLogin().trim().compareToIgnoreCase(login)!=0;i++);
-			if(i==nbMembers){
-				throw new NotMemberException("The member "+login+" already exists !!");
+			for (i = 0; i < nbMembers()
+					&& members.get(i).getLogin().trim()
+							.compareToIgnoreCase(login) != 0; i++)
+				;
+			if (i == nbMembers) {
+				throw new NotMemberException("The member " + login
+						+ " does not exist !!");
 			}
-			
-			else{
-				if(members.get(i).getPassword()!=password) throw new NotMemberException("The member "+login+" entered wrong password");
-				for(i=0;i<nbItems && items.get(i).getTitle().trim().compareToIgnoreCase(title.trim())!=0;i++);
-				if(i==nbItems) throw new NotItemException("The Item "+title +" does not exist!!");
+
+			else {
+				if (members.get(i).getPassword() != password)
+					throw new NotMemberException("The member " + login
+							+ " entered wrong password");
+				int j;
+				for (j = 0; j < nbItems
+						&& items.get(j).getTitle().trim()
+								.compareToIgnoreCase(title.trim()) != 0; j++)
+					;
+				if (j == nbItems)
+					throw new NotItemException("The Item " + title
+							+ " does not exist!!");
 				else {
-						
+					Review r=new Review(members.get(i),mark,comment,items.get(j));
+					items.get(j).addReview(r);
+					members.get(i).addReview(r);
 				}
-				
+
 			}
 		}
-		
+
 		return 0;
 	}
 
 	@Override
 	public LinkedList<String> consultItems(String title)
 			throws BadEntryException {
-		if(title==null ||title.trim().length()<1) throw new BadEntryException("The input is not correct !!!");
+		if (title == null || title.trim().length() < 1)
+			throw new BadEntryException("The input is not correct at consultItems("+title+")!");
 		else {
-			LinkedList<String> retour=new LinkedList<String>();
-			for(Item i: items){
-				if(i.getTitle().toLowerCase().contains(title.toLowerCase())) retour.add(i.getTitle());
+			LinkedList<String> retour = new LinkedList<String>();
+			for (Item i : items) {
+				if (i.getTitle().toLowerCase().contains(title.toLowerCase()))
+					retour.add(i.getTitle());
 			}
 			return retour;
 		}
 	}
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		ISocialNetwork sn=new SocialNetwork();
-		try{
-			sn.addMember("Pierre","pass","FIP");
-			sn.addMember("Serigne","pass","FIP");
-			sn.addItemBook("Pierre", "pass", "BDMangas", "ANIME", "Aut", 3);
-			sn.addItemBook("Serigne", "pass", "BDMangas2", "ANIME", "Aut", 3);
-			sn.addItemFilm("Pierre", "pass", "Film", "ANIME", "Direct","Scenarist", 2);
-			LinkedList <String> search=sn.consultItems("BDm");
-			for(int i=0;i<search.size();i++){
-				System.out.println(search.get(i));
-			}
-			System.out.println(sn.toString());
-		}
-		catch(Exception e){};
-		
-		
-	}
 
 	/**
 	 * @uml.property name="members"
@@ -291,17 +332,64 @@ public class SocialNetwork implements ISocialNetwork {
 	public void setMembers(LinkedList<Member> members_) {
 		members = members_;
 	}
-	
-	public String toString(){
-		String retour="";
-		retour+="Members of the Social Network :\n";
-		for(Member m: members){
-			retour+="--Pseudo : "+m.getLogin()+"  --Profile :" +m.getProfile()+"\n";
+
+	public String toString() {
+		String retour = "";
+		retour += "Members of the Social Network :\n";
+		for (Member m : members) {
+			retour += m.toString()+"\n";
 		}
-		retour+="Items of the Social Network :\n";
-		for(Item i: items){
-			retour+="--Titre : "+i.getTitle()+ " --Genre : "+i.getKind()+" --Note : "+i.getMark()+"\n";
+		retour += "Items of the Social Network :\n";
+		for (Item i : items) {
+			retour +=i.toString()+"\n";
 		}
 		return retour;
+	}
+	
+
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ISocialNetwork sn = new SocialNetwork();
+		try {
+			sn.addMember("Pierre", "pass", "FIP");
+			sn.addMember("Serigne", "pass", "FIP");
+			sn.addMember("Pierre1", "pass", "FIP");
+			sn.addMember("Serigne1", "pass", "FIP");
+			sn.addMember("Pierre2", "pass", "FIP");
+			sn.addMember("Serigne2", "pass", "FIP");
+			
+			
+			sn.addItemBook("Pierre", "pass", "1BDMangas", "ANIME", "Aut", 3);
+			sn.addItemBook("Serigne", "pass", "1BDMangas2", "ANIME", "Aut", 3);
+			sn.addItemFilm("Pierre", "pass", "1Film", "ANIME", "Direct",
+					"Scenarist", 2);
+			sn.addItemBook("Serigne1", "pass", "2BDMangas2", "ANIME", "Aut", 3);
+			sn.addItemFilm("Pierre2", "pass", "2Film", "ANIME", "Direct",
+					"Scenarist", 2);
+			sn.addItemBook("Pierre", "pass", "3BDMangas", "ANIME", "Aut", 3);
+			sn.addItemBook("Serigne2", "pass", "3BDMangas2", "ANIME", "Aut", 3);
+			sn.addItemFilm("Pierre1", "pass", "3Film", "ANIME", "Direct",
+					"Scenarist", 2);
+			
+			
+			sn.reviewItemFilm("Serigne", "pass", "1Film", 2, "Quel bon FILM !");
+			sn.reviewItemFilm("Serigne", "pass", "1Film", 2, "Quel bon FILM !");
+			sn.reviewItemFilm("Serigne", "pass", "1Film", 4, "Quel bon FILM !");
+			sn.reviewItemFilm("Serigne1", "pass", "1Film", 4, "Quel bon livre !");
+
+			/*LinkedList<String> search = sn.consultItems("BD");
+			for (int i = 0; i < search.size(); i++) {
+				System.out.println(search.get(i));
+			}*/
+			System.out.println(sn.toString());
+		} 
+		catch(MemberAlreadyExistsException e){System.out.println("There is an existing member in the test");}
+		catch (Exception e) {	System.out.println(e.getMessage());}
+		;
+
 	}
 }

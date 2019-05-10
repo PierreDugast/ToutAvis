@@ -5,6 +5,12 @@ import java.util.Collection;
 
 public class Review {
 
+	public Review(Member m,float mark,String comment,Item i){
+		member=m;
+		this.mark=mark;
+		this.comment=comment;
+		item=i;
+	}
 	/**
 	 * @uml.property  name="mark"
 	 */

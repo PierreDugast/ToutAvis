@@ -2,6 +2,7 @@ package opinion;
 
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 public class Member {
 
@@ -77,7 +78,7 @@ public class Member {
 	/**
 	 * @uml.property  name="karma"
 	 */
-	private float karma;
+	private float karma=0;
 
 	/**
 	 * Getter of the property <tt>karma</tt>
@@ -101,15 +102,15 @@ public class Member {
 	 * @uml.property name="review"
 	 * @uml.associationEnd multiplicity="(0 -1)" inverse="member:Review"
 	 */
-	private Collection review = new java.util.ArrayList();
+	private LinkedList<Review> reviews ;
 
 	/** 
 	 * Getter of the property <tt>review</tt>
 	 * @return  Returns the review.
 	 * @uml.property  name="review"
 	 */
-	public Collection getReview() {
-		return review;
+	public Collection getReviews() {
+		return reviews;
 	}
 
 	/** 
@@ -117,10 +118,13 @@ public class Member {
 	 * @param review  The review to set.
 	 * @uml.property  name="review"
 	 */
-	public void setReview(Collection review) {
-		this.review = review;
+	public void setReviews(LinkedList<Review> review) {
+		this.reviews = review;
 	}
 
+	public void addReview(Review r){
+		reviews.add(r);
+	}
 		
 		/**
 		 */
@@ -128,9 +132,11 @@ public class Member {
 			this.login=login;
 			this.password=password;
 			this.profile=profile;
+			reviews=new LinkedList<Review>();
 			karma=0;
 		}
-
-
-
+	public String toString(){
+		return	"--Pseudo : " + getLogin() + "  --Profile :"
+		+ getProfile() + " --Karma actuel : "+getKarma();
+	}
 }
