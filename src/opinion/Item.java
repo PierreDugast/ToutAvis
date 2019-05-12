@@ -94,7 +94,9 @@ public abstract class Item {
 		mark=(mark*(nbReviews-1)+r.getMark())/nbReviews;
 	}
 	
+	
 	public String toString(){
+		
 		String retour="--Titre : " + getTitle() + " --Genre : " + getKind()+" --Note attribuée : "+getMark();
 		return retour;
 	}

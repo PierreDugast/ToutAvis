@@ -35,7 +35,7 @@ import exceptions.NotMemberException;
  */
 
 public interface ISocialNetwork {
-
+	
 	/**
 	 * Get the number of members registered in the <i>SocialNetwork</i>
 	 * 

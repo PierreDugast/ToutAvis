@@ -346,6 +346,8 @@ public class SocialNetwork implements ISocialNetwork {
 		return retour;
 	}
 	
+	
+	
 
 	
 	/**
@@ -364,7 +366,7 @@ public class SocialNetwork implements ISocialNetwork {
 			
 			
 			sn.addItemBook("Pierre", "pass", "1BDMangas", "ANIME", "Aut", 3);
-			sn.addItemBook("Serigne", "pass", "1BDMangas2", "ANIME", "Aut", 3);
+			sn.addItemBook("Serigne", "pass", "1BDMangas2", "ANIME", "Aut", 300);
 			sn.addItemFilm("Pierre", "pass", "1Film", "ANIME", "Direct",
 					"Scenarist", 2);
 			sn.addItemBook("Serigne1", "pass", "2BDMangas2", "ANIME", "Aut", 3);
@@ -376,16 +378,22 @@ public class SocialNetwork implements ISocialNetwork {
 					"Scenarist", 2);
 			
 			
-			sn.reviewItemFilm("Serigne", "pass", "1Film", 2, "Quel bon FILM !");
-			sn.reviewItemFilm("Serigne", "pass", "1Film", 2, "Quel bon FILM !");
-			sn.reviewItemFilm("Serigne", "pass", "1Film", 4, "Quel bon FILM !");
-			sn.reviewItemFilm("Serigne1", "pass", "1Film", 4, "Quel bon livre !");
+			sn.reviewItemFilm("Serigne", "pass", "1Film", 2, "Mediocre !");
+			sn.reviewItemFilm("Serigne", "pass", "1Film", 3, "Film Pertinent  !");
+			sn.reviewItemFilm("Serigne", "pass", "1Film", 5, "Excellent!");
+			sn.reviewItemFilm("Serigne1", "pass", "1Film", 4, "Tres bien :)");
+			
+			sn.reviewItemBook("Pierre", "pass", "1BDMangas2", 2, "Quel bon livre !");
+			sn.reviewItemBook("Serigne", "pass", "1BDMangas2", 3, "Quel bon livre !");
+			sn.reviewItemBook("Serigne", "pass", "1BDMangas2", 5, "Quel bon livre !");
+			sn.reviewItemBook("Serigne1", "pass", "1BDMangas2", 4, "Quel bon livre !");
 
 			/*LinkedList<String> search = sn.consultItems("BD");
 			for (int i = 0; i < search.size(); i++) {
 				System.out.println(search.get(i));
 			}*/
 			System.out.println(sn.toString());
+			
 		} 
 		catch(MemberAlreadyExistsException e){System.out.println("There is an existing member in the test");}
 		catch (Exception e) {	System.out.println(e.getMessage());}
