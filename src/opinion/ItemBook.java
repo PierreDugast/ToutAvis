@@ -8,8 +8,8 @@ public class ItemBook extends Item {
 	 */
 	private String author;
 
-	public ItemBook(String title,  String kind, String author,int nbPages) {
-		super(title,kind);
+	public ItemBook(String title,  String kind, String author,int nbPages,int ID) {
+		super(title,kind,ID);
 		this.author=author;
 		this.nbPages=nbPages;
 		// TODO Auto-generated constructor stub
@@ -57,7 +57,7 @@ public class ItemBook extends Item {
 	}
 	
 	public String toString(){
-		String retour=super.toString()+" --Auteur  : " + getAuthor() + " --Nombre de Pages : " + getNbPages();
+		String retour=super.toString()+" Type : LIVRE "+" --Auteur  : " + getAuthor() + " --Nombre de Pages : " + getNbPages();
 		return retour;
 	}
 

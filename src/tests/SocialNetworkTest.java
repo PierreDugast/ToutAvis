@@ -34,6 +34,10 @@ public class SocialNetworkTest {
 			testSuiteReport.add(tr);
 			System.out.println("\n\n **********************************************************************************************\n");
 			
+			
+			tr = ReviewOpinionTest.test();
+			testSuiteReport.add(tr);
+			System.out.println("\n\n **********************************************************************************************\n");
 			//
 			// TODO : calls to other tests have to be added from here
 			//

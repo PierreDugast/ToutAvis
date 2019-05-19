@@ -3,8 +3,8 @@ package opinion;
 
 public class ItemFilm extends Item {
 	
-	public ItemFilm(String title,String kind,String director, String scenarist,int duration){
-		super(title,kind);
+	public ItemFilm(String title,String kind,String director, String scenarist,int duration,int ID){
+		super(title,kind,ID);
 		this.director=director;
 		this.scenarist=scenarist;
 		this.duration=duration;
@@ -78,7 +78,7 @@ public class ItemFilm extends Item {
 		this.duration = duration;
 	}
 	public String toString(){
-		String retour=super.toString()+" --Director : " + getDirector() + " --Scenariste  : " + getScenarist()+" --Durée : "+getDuration()+" heures";
+		String retour=super.toString()+" Type : FILM "+" --Director : " + getDirector() + " --Scenariste  : " + getScenarist()+" --Durée : "+getDuration()+" heures";
 		return retour;
 	}
 }

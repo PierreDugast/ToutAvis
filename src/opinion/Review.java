@@ -1,15 +1,15 @@
 package opinion;
 
 
-import java.util.Collection;
+//import java.util.Collection;
 
 public class Review {
 
-	public Review(Member m,float mark,String comment,Item i){
+	public Review(Member m,float mark,String comment,Item item){
 		member=m;
 		this.mark=mark;
 		this.comment=comment;
-		item=i;
+		this.item=item;
 	}
 	/**
 	 * @uml.property  name="mark"
@@ -68,7 +68,7 @@ public class Review {
 	 * @return  Returns the item.
 	 * @uml.property  name="item"
 	 */
-	public Item getItem() {
+	public Item getValue() {
 		return item;
 	}
 
@@ -77,7 +77,7 @@ public class Review {
 	 * @param item  The item to set.
 	 * @uml.property  name="item"
 	 */
-	public void setItem(Item item) {
+	public void setValue(Item item) {
 		this.item = item;
 	}
 
