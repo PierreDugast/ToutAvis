@@ -208,7 +208,9 @@ public class ReviewOpinionTest {
 		nbTests++;
 		nbErrors+=ReviewOpinionNotMemberTest(sn,"Serigne","pass",5,'b',"Sous l'orage","member","2.3","Reviews of inexisting members" +
 				" are accepted !!!");
-		
+		nbTests++;
+		nbErrors+=ReviewOpinionNotMemberTest(sn,"Serigne","pass",5,'f',"GOT","Pierre","5.1","Reviews of wrong members for wrong items" +
+				" are accepted !!!");
 		nbTests++;
 		nbErrors+=ReviewOpinionNotItemTest(sn,"Serigne","pass",5,'f',"book","member","3.1","Reviews for inexisting items" +
 				" are accepted !!!");
@@ -228,7 +230,7 @@ public class ReviewOpinionTest {
 		nbTests++;
 		nbErrors+=ReviewOpinionOKTest(sn,"Serigne","pass",5,'b',"Sous l'orage","Pierre","5.1");
 		
-
+		
 		try{
 			TestReport tr = new TestReport(nbTests, nbErrors);	
 			System.out.println("ReviewOpinionTest : " + tr);

@@ -1,5 +1,7 @@
 package opinion;
 
+import java.util.LinkedList;
+
 import exceptions.SameMemberException;
 import exceptions.BadEntryException;
 import exceptions.NotMemberException;
@@ -9,5 +11,12 @@ public interface ISocialNetworkPremium extends ISocialNetwork {
 
 	public void reviewOpinion(String login,String password,int mark,char type,String title,String loginAuthor)
 		throws SameMemberException,BadEntryException,NotMemberException,NotItemException;
+	/*
+	 * 
+	 * 
+	 */
 	
+	public LinkedList<String> searchItemBook(String title);
+	public LinkedList<String> searchItemFilm(String title);
+
 }
