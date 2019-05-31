@@ -8,6 +8,7 @@ import exceptions.ItemFilmAlreadyExistsException;
 import exceptions.MemberAlreadyExistsException;
 import exceptions.NotItemException;
 import exceptions.NotMemberException;
+import exceptions.NotReviewException;
 import exceptions.SameMemberException;
 import java.util.Collection;
 
@@ -335,7 +336,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
 		if (type == 'f' || type == 'F') {
 			int i;
 			for (i = 0; i < nbFilms
-					&& itemFilms.get(i).getTitle().trim().equals(title.trim()) == false; i++)
+					&& itemFilms.get(i).getTitle().trim().toLowerCase().equals(title.toLowerCase().trim()) == false; i++)
 				;
 			if (i < nbFilms)
 				return itemFilms.get(i);
@@ -347,7 +348,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
 		else if (type == 'b' || type == 'B') {
 			int i;
 			for (i = 0; i < nbBooks
-					&& itemBooks.get(i).getTitle().trim().equals(title.trim()) == false; i++)
+					&& itemBooks.get(i).getTitle().trim().toLowerCase().equals(title.toLowerCase().trim()) == false; i++)
 				;
 			if (i < nbBooks)
 				return itemBooks.get(i);
@@ -370,7 +371,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
 	public void reviewOpinion(String login, String password, int mark,
 			char type, String title, String loginAuthor)
 			throws BadEntryException, NotMemberException, NotItemException,
-			SameMemberException {
+			SameMemberException,NotReviewException {
 
 		if (login == null || login.trim().length() < 1
 				|| login.trim().equals("") || password == null
@@ -413,7 +414,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
 					if (m != null)
 						m.setKarma(mark, m.getKarma());
 					else
-						throw new NotMemberException("The member "
+						throw new NotReviewException("The member "
 								+ loginAuthor + " never reviewed " + title);
 				}
 			}
