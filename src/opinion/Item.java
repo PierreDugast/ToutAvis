@@ -1,6 +1,5 @@
 package opinion;
 
-import java.util.Collection;
 import java.util.LinkedList;
 
 public abstract class Item {
@@ -122,7 +121,7 @@ public abstract class Item {
 			if (nbReviews == 1)
 				mark = r.getMark();// This is the first review of the item
 
-			// Calculate The mean without revisiting the whole list
+			// Calculate The mean without revisiting the whole list using the mathematical expression of the mean
 			else
 				mark = (mark * (sumKarmas - r.getMember().getKarma()) + r
 						.getMark() * r.getMember().getKarma())

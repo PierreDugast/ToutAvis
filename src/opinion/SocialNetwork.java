@@ -10,7 +10,6 @@ import exceptions.NotItemException;
 import exceptions.NotMemberException;
 import exceptions.NotReviewException;
 import exceptions.SameMemberException;
-import java.util.Collection;
 
 /**
  * Skeleton for the SocialNetwork
@@ -22,8 +21,6 @@ public class SocialNetwork implements ISocialNetworkPremium {
 	private int nbItems = 0;
 	private int nbBooks = 0;
 	private int nbFilms = 0;
-	private int reviewID = 0;
-
 	private LinkedList<Member> members;
 
 	private LinkedList<ItemBook> itemBooks;
@@ -67,16 +64,17 @@ public class SocialNetwork implements ISocialNetworkPremium {
 
 		else {
 
-			int i = 0;
-			for (i = 0; i < nbMembers && members.get(i).getLogin().trim() // Testing
-																			// the
-																			// existence
-																			// of
-																			// the
-																			// member
-					.compareToIgnoreCase(login.trim()) != 0; i++)
+			int memberIndex = 0;
+			for (memberIndex = 0; memberIndex < nbMembers
+					&& members.get(memberIndex).getLogin().trim() // Testing
+							// the
+							// existence
+							// of
+							// the
+							// member
+							.compareToIgnoreCase(login.trim()) != 0; memberIndex++)
 				;
-			if (i == nbMembers) {
+			if (memberIndex == nbMembers) {
 				nbMembers++;
 				members.add(new Member(login, password, profile));
 			} else
@@ -86,6 +84,9 @@ public class SocialNetwork implements ISocialNetworkPremium {
 
 	}
 
+	/**
+ * 
+ * **/
 	@Override
 	public void addItemFilm(String login, String password, String title,
 			String kind, String director, String scenarist, int duration)
@@ -101,27 +102,27 @@ public class SocialNetwork implements ISocialNetworkPremium {
 
 		else {
 
-			int i;
-			for (i = 0; i < nbMembers()
-					&& members.get(i).getLogin().trim()
-							.compareToIgnoreCase(login) != 0; i++)
+			int memberIndex, itemFilmIndex;
+			for (memberIndex = 0; memberIndex < nbMembers()
+					&& members.get(memberIndex).getLogin().trim()
+							.compareToIgnoreCase(login) != 0; memberIndex++)
 				;
-			if (i == nbMembers) {
+			if (memberIndex == nbMembers) {
 				throw new NotMemberException("The member " + login
 						+ " does not exist !!");
 			}
 
 			else {
 
-				if (members.get(i).getPassword().equals(password) == false)
+				if (members.get(memberIndex).getPassword().equals(password) == false)
 					throw new NotMemberException("The member " + login
 							+ " entered wrong password");
 
-				for (i = 0; i < nbFilms
-						&& itemFilms.get(i).getTitle().trim()
-								.compareToIgnoreCase(title.trim()) != 0; i++)
+				for (itemFilmIndex = 0; itemFilmIndex < nbFilms
+						&& itemFilms.get(itemFilmIndex).getTitle().trim()
+								.compareToIgnoreCase(title.trim()) != 0; itemFilmIndex++)
 					;
-				if (i == nbFilms) {
+				if (itemFilmIndex == nbFilms) {
 					nbItems++;
 					nbFilms++;
 					itemFilms.add(new ItemFilm(title, kind, director,
@@ -149,7 +150,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
 		}
 
 		else {
-			int i;
+			int i, itemBookIndex;
 			for (i = 0; i < nbMembers()
 					&& members.get(i).getLogin().trim()
 							.compareToIgnoreCase(login) != 0; i++)
@@ -163,11 +164,11 @@ public class SocialNetwork implements ISocialNetworkPremium {
 				if (members.get(i).getPassword().equals(password) == false)
 					throw new NotMemberException("The member " + login
 							+ " entered wrong password");
-				for (i = 0; i < nbBooks
-						&& itemBooks.get(i).getTitle().trim()
-								.compareToIgnoreCase(title.trim()) != 0; i++)
+				for (itemBookIndex = 0; itemBookIndex < nbBooks
+						&& itemBooks.get(itemBookIndex).getTitle().trim()
+								.compareToIgnoreCase(title.trim()) != 0; itemBookIndex++)
 					;
-				if (i == nbBooks) {
+				if (itemBookIndex == nbBooks) {
 					nbItems++;
 					nbBooks++;
 					itemBooks.add(new ItemBook(title, kind, author, nbPages,
@@ -194,33 +195,33 @@ public class SocialNetwork implements ISocialNetworkPremium {
 		}
 
 		else {
-			int i;
-			for (i = 0; i < nbMembers()
-					&& members.get(i).getLogin().trim()
-							.compareToIgnoreCase(login) != 0; i++)
+			int memberIndex;
+			for (memberIndex = 0; memberIndex < nbMembers()
+					&& members.get(memberIndex).getLogin().trim()
+							.compareToIgnoreCase(login) != 0; memberIndex++)
 				;
-			if (i == nbMembers) {
+			if (memberIndex == nbMembers) {
 				throw new NotMemberException("The member " + login
 						+ " does not exist !!");
 			}
 
 			else {
-				if (members.get(i).getPassword() != password)
+				if (members.get(memberIndex).getPassword() != password)
 					throw new NotMemberException("The member " + login
 							+ " entered wrong password");
-				int j;
-				for (j = 0; j < nbFilms
-						&& itemFilms.get(j).getTitle().trim()
-								.compareToIgnoreCase(title.trim()) != 0; j++)
+				int jtemFilmIndex;
+				for (jtemFilmIndex = 0; jtemFilmIndex < nbFilms
+						&& itemFilms.get(jtemFilmIndex).getTitle().trim()
+								.compareToIgnoreCase(title.trim()) != 0; jtemFilmIndex++)
 					;
-				if (j == nbFilms)
+				if (jtemFilmIndex == nbFilms)
 					throw new NotItemException("The Item " + title
 							+ " does not exist!!");
 				else {
-					Review r = new Review(members.get(i), mark, comment,
-							itemFilms.get(j));
-					itemFilms.get(j).addReview(r);
-					return itemFilms.get(j).getMark();
+					Review r = new Review(members.get(memberIndex), mark,
+							comment, itemFilms.get(jtemFilmIndex));
+					itemFilms.get(jtemFilmIndex).addReview(r);
+					return itemFilms.get(jtemFilmIndex).getMark();
 				}
 
 			}
@@ -243,34 +244,34 @@ public class SocialNetwork implements ISocialNetworkPremium {
 		}
 
 		else {
-			int i;
-			for (i = 0; i < nbMembers()
-					&& members.get(i).getLogin().trim()
-							.compareToIgnoreCase(login) != 0; i++)
+			int memberIndex;
+			for (memberIndex = 0; memberIndex < nbMembers()
+					&& members.get(memberIndex).getLogin().trim()
+							.compareToIgnoreCase(login) != 0; memberIndex++)
 				;
-			if (i == nbMembers) {
+			if (memberIndex == nbMembers) {
 				throw new NotMemberException("The member " + login
 						+ " does not exist !!");
 			}
 
 			else {
-				if (members.get(i).getPassword().equals(password) == false)
+				if (members.get(memberIndex).getPassword().equals(password) == false)
 					throw new NotMemberException("The member " + login
 							+ " entered wrong password");
-				int j;
-				for (j = 0; j < nbBooks
-						&& itemBooks.get(j).getTitle().trim()
-								.compareToIgnoreCase(title.trim()) != 0; j++)
+				int itemBookIndex;
+				for (itemBookIndex = 0; itemBookIndex < nbBooks
+						&& itemBooks.get(itemBookIndex).getTitle().trim()
+								.compareToIgnoreCase(title.trim()) != 0; itemBookIndex++)
 					;
-				if (j == nbBooks)
+				if (itemBookIndex == nbBooks)
 					throw new NotItemException("The Item " + title
 							+ " does not exist!!");
 				else {
-					Review r = new Review(members.get(i), mark, comment,
-							itemBooks.get(j));
-					itemBooks.get(j).addReview(r);
-					members.get(i).addReview(r);
-					return itemBooks.get(j).getMark();
+					Review r = new Review(members.get(memberIndex), mark,
+							comment, itemBooks.get(itemBookIndex));
+					itemBooks.get(itemBookIndex).addReview(r);
+					members.get(memberIndex).addReview(r);
+					return itemBooks.get(itemBookIndex).getMark();
 				}
 
 			}
@@ -286,15 +287,15 @@ public class SocialNetwork implements ISocialNetworkPremium {
 					"The input is not correct at consultItems(" + title + ")!");
 		else {
 			LinkedList<String> retour = new LinkedList<String>();
-			for (ItemBook i : itemBooks) {
-				if (i.getTitle().toLowerCase()
+			for (ItemBook itemBook : itemBooks) {
+				if (itemBook.getTitle().toLowerCase()
 						.equals(title.trim().toLowerCase()))
-					retour.add(i.toString());
+					retour.add(itemBook.toString());
 			}
-			for (ItemFilm i : itemFilms) {
-				if (i.getTitle().trim().toLowerCase()
+			for (ItemFilm itemFilm : itemFilms) {
+				if (itemFilm.getTitle().trim().toLowerCase()
 						.equals(title.trim().toLowerCase()))
-					retour.add(i.toString());
+					retour.add(itemFilm.toString());
 			}
 			return retour;
 		}
@@ -326,7 +327,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
 		return retour;
 	}
 
-	/*
+	/**
 	 * This function is used by reviewOpinion It takes the type 'f' or 'b'
 	 * (without case sensitivity) for films and books respectively and return
 	 * the corresponding Item Object If the item is not found it returns null
@@ -336,7 +337,8 @@ public class SocialNetwork implements ISocialNetworkPremium {
 		if (type == 'f' || type == 'F') {
 			int i;
 			for (i = 0; i < nbFilms
-					&& itemFilms.get(i).getTitle().trim().toLowerCase().equals(title.toLowerCase().trim()) == false; i++)
+					&& itemFilms.get(i).getTitle().trim().toLowerCase()
+							.equals(title.toLowerCase().trim()) == false; i++)
 				;
 			if (i < nbFilms)
 				return itemFilms.get(i);
@@ -348,7 +350,8 @@ public class SocialNetwork implements ISocialNetworkPremium {
 		else if (type == 'b' || type == 'B') {
 			int i;
 			for (i = 0; i < nbBooks
-					&& itemBooks.get(i).getTitle().trim().toLowerCase().equals(title.toLowerCase().trim()) == false; i++)
+					&& itemBooks.get(i).getTitle().trim().toLowerCase()
+							.equals(title.toLowerCase().trim()) == false; i++)
 				;
 			if (i < nbBooks)
 				return itemBooks.get(i);
@@ -362,16 +365,16 @@ public class SocialNetwork implements ISocialNetworkPremium {
 
 	/**
 	 * This function will review the opinion given on a specific item by a
-	 * member Note that one member cannot rate his own opinion
+	 * member. Note that one member cannot rate his own opinion
 	 * (SameMemberException) The type parameter takes 'f' or 'b' as value
 	 * (without case sensitivity) respectively for books and films The
 	 * loginAuthor parameter will be the login of a member who reviewed the item
-	 * "title"
+	 * "title" His karma is returned by the function
 	 */
-	public void reviewOpinion(String login, String password, int mark,
+	public float reviewOpinion(String login, String password, int mark,
 			char type, String title, String loginAuthor)
 			throws BadEntryException, NotMemberException, NotItemException,
-			SameMemberException,NotReviewException {
+			SameMemberException, NotReviewException {
 
 		if (login == null || login.trim().length() < 1
 				|| login.trim().equals("") || password == null
@@ -383,37 +386,71 @@ public class SocialNetwork implements ISocialNetworkPremium {
 		}
 
 		else {
-			int i;
-			for (i = 0; i < nbMembers()
-					&& members.get(i).getLogin().trim()
-							.compareToIgnoreCase(login.trim()) != 0; i++)
+			int memberIndex;
+			for (memberIndex = 0; memberIndex < nbMembers()
+					&& members.get(memberIndex).getLogin().trim()
+							.compareToIgnoreCase(login.trim()) != 0; memberIndex++)
 				;
-			if (i == nbMembers) {
+			if (memberIndex == nbMembers) {
 				throw new NotMemberException("The member " + login
 						+ " does not exist !!");
 			}
 
 			else {
-				if (members.get(i).getPassword().equals(password) == false)
+				if (members.get(memberIndex).getPassword().equals(password) == false)
 					throw new NotMemberException("The member " + login
 							+ " entered wrong password");
-				if (login.equals(loginAuthor))
+				if (login.trim().compareToIgnoreCase(loginAuthor.trim()) == 0)// One
+																				// member
+																				// cannot
+																				// review
+																				// his
+																				// own
+																				// opinion
 					throw new SameMemberException("The member " + login
 							+ " shouldn't review himself");
-				else {
 
+				else {
+					Member ratingMember = members.get(memberIndex);// We get the
+																	// the
+																	// member
+																	// making
+																	// this
+																	// review
 					Item item = searchItem(type, title);
-					Member m = null;
-					for (Review r : item.getReviews()) {
-						if (r.getMember().getLogin().equals(loginAuthor)) {
-							m = r.getMember();
+					Member authorMember = null;// Member 'loginAuthor'
+					Review reviewToBeRated = null;
+					for (Review reviewIterator : item.getReviews()) {
+						if (reviewIterator.getMember().getLogin().trim()
+								.toLowerCase()
+								.equals(loginAuthor.trim().toLowerCase())) {// Finding
+																			// the
+																		// corresponding
+														// 	Member object to loginAuthor parameter
+							authorMember = reviewIterator.getMember();
+							reviewToBeRated = reviewIterator;
+
 							break;
 						}
 						;
 					}
-					if (m != null)
-						m.setKarma(mark, m.getKarma());
-					else
+					if (authorMember != null) {
+						if (ratingMember.hasAlreadyReviewed(reviewToBeRated)) {
+							return authorMember.getKarma();
+						}
+
+						authorMember.setKarma(mark, ratingMember.getKarma());// update
+																				// the
+																				// karma
+																				// of
+																				// that
+																				// member
+																				// otherwise
+						ratingMember.addOpinion(reviewToBeRated);
+						return authorMember.getKarma();
+					} else
+						// This means that the member loginAuthor never reviewed
+						// the item
 						throw new NotReviewException("The member "
 								+ loginAuthor + " never reviewed " + title);
 				}
@@ -422,7 +459,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
 
 	}
 
-	/*
+	/**
 	 * This method will search a film title in the social network without taking
 	 * the case into account The descriptions of all the corresponding books
 	 * will be returned
@@ -442,7 +479,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
 		return retour;
 	}
 
-	/*
+	/**
 	 * This method will search a film title in the social network without taking
 	 * the case into account The descriptions of all the corresponding films
 	 * will be returned
@@ -465,102 +502,101 @@ public class SocialNetwork implements ISocialNetworkPremium {
 	/**
 	 * @param args
 	 */
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ISocialNetworkPremium sn = new SocialNetwork();
-/*		
-		  try { sn.addMember("Pierre", "pass", "FIP"); sn.addMember("Serigne",
-		  "pass", "FIP"); sn.addMember("Pierre1", "pass", "FIP");
-		  sn.addMember("Serigne1", "pass", "FIP"); sn.addMember("Pierre2",
-		  "pass", "FIP"); sn.addMember("Serigne2", "pass", "FIP");
-		  
-		  
-		  sn.addItemBook("Pierre", "pass", "1000 et une nuits", "Contes",
-		  "Inconnu", 3); sn.addItemBook("Serigne", "pass", "Sous l'orage",
-		  "Histoire", "Seydou Badian", 300);
-		  
-		  sn.addItemFilm("Pierre", "pass", "GOT ", "Moyen Age", "DB WEISS",
-		  "BENIOFF", 20); sn.addItemBook("Serigne1", "pass", "2BDMangas2",
-		  "ANIME", "Aut", 3); sn.addItemFilm("Pierre2", "pass",
-		  "DOUBLE Dragon", "ANIME", "Direct", "Scenarist", 2);
-		  sn.addItemBook("Pierre", "pass", "3BDMangas", "ANIME", "Aut", 3);
-		  sn.addItemBook("Serigne2", "pass", "3BDMangas2", "ANIME", "Aut", 3);
-		  sn.addItemFilm("Pierre1", "pass", "3Film", "ANIME", "Direct",
-		  "Scenarist", 2);
-		  
-		  
-		  sn.reviewItemFilm("Serigne", "pass", "GOT", 2, "Mediocre !");
-		  sn.reviewItemFilm("Serigne", "pass", "GOT", 3, "Film Pertinent  !");
-		  sn.reviewItemFilm("Serigne", "pass", "GOT", 5, "Excellent!");
-		  sn.reviewItemFilm("Serigne1", "pass", "GOT", 4, "Tres bien :)");
-		  
-		  sn.reviewItemBook("Pierre", "pass", "Sous l'orage", 2,
-		  "Quel bon livre !"); sn.reviewItemBook("Serigne", "pass",
-		  "Sous l'orage", 3, "Quel bon livre !"); sn.reviewItemBook("Serigne1",
-		  "pass", "Sous l'orage", 4, "Quel bon livre !");
-		  
-		  
-		  
-		  sn.reviewOpinion("Pierre", "pass", 4, 'f', "GOT", "Serigne");
-		  sn.reviewOpinion("Serigne", "pass", 4, 'B', "Sous l'orage",
-		  "Pierre");
-		  
-		  
-		  sn.reviewItemBook("Serigne", "pass", "3BDMangas", 5,
-		  "Quel bon livre !"); sn.reviewItemBook("Pierre", "pass", "3BDMangas",
-		  4, "Quel bon livre !"); sn.reviewItemBook("Serigne", "pass",
-		  "3BDMangas", 5, "Quel bon livre !");
-		  
-		  sn.reviewItemBook("Pierre1", "pass", "3BDMangas", 4,
-		  "Quel bon livre !");
-		  
-		  sn.reviewItemBook("Serigne1", "pass", "3BDMangas", 4,
-		  "Quel bon livre !");
-		  
-		  
-		  System.out.println(sn.toString());
-		  
-		  System.out.println(sn.searchItemFilm("GOT").get(0));
+/*
+		try {
+			sn.addMember("Pierre", "pass", "FIP");
+			sn.addMember("Serigne", "pass", "FIP");
+			sn.addMember("Pierre1", "pass", "FIP");
+			sn.addMember("Serigne1", "pass", "FIP");
+			sn.addMember("Pierre2", "pass", "FIP");
+			sn.addMember("Serigne2", "pass", "FIP");
 
+			sn.addItemBook("Pierre", "pass", "1000 et une nuits", "Contes",
+					"Inconnu", 3);
+			sn.addItemBook("Serigne", "pass", "Sous l'orage", "Histoire",
+					"Seydou Badian", 300);
+
+			sn.addItemFilm("Pierre", "pass", "GOT ", "Moyen Age", "DB WEISS",
+					"BENIOFF", 20);
+			sn.addItemBook("Serigne1", "pass", "2BDMangas2", "ANIME", "Aut", 3);
+			sn.addItemFilm("Pierre2", "pass", "DOUBLE Dragon", "ANIME",
+					"Direct", "Scenarist", 2);
+			sn.addItemBook("Pierre", "pass", "3BDMangas", "ANIME", "Aut", 3);
+			sn.addItemBook("Serigne2", "pass", "3BDMangas2", "ANIME", "Aut", 3);
+			sn.addItemFilm("Pierre1", "pass", "3Film", "ANIME", "Direct",
+					"Scenarist", 2);
+
+			sn.reviewItemFilm("Serigne", "pass", "GOT", 2, "Mediocre !");
+			sn.reviewItemFilm("Serigne", "pass", "GOT", 3, "Film Pertinent  !");
+			sn.reviewItemFilm("Serigne", "pass", "GOT", 5, "Excellent!");
+			sn.reviewItemFilm("Serigne1", "pass", "GOT", 4, "Tres bien :)");
+
+			sn.reviewItemBook("Pierre", "pass", "Sous l'orage", 2,
+					"Quel bon livre !");
+			sn.reviewItemBook("Serigne", "pass", "Sous l'orage", 3,
+					"Quel bon livre !");
+			sn.reviewItemBook("Serigne1", "pass", "Sous l'orage", 4,
+					"Quel bon livre !");
+
+			sn.reviewOpinion("Pierre", "pass", 4, 'f', "GOT", "Serigne");
+			sn.reviewOpinion("Serigne", "pass", 5, 'B', "Sous l'orage",
+					"Pierre");
+
+			sn.reviewItemBook("Serigne", "pass", "3BDMangas", 5,
+					"Quel bon livre !");
+			sn.reviewItemBook("Pierre", "pass", "3BDMangas", 4,
+					"Quel bon livre !");
+			sn.reviewItemBook("Serigne", "pass", "3BDMangas", 5,
+					"Quel bon livre !");
+
+			sn.reviewItemBook("Pierre1", "pass", "3BDMangas", 4,
+					"Quel bon livre !");
+
+			sn.reviewItemBook("Serigne1", "pass", "3BDMangas", 4,
+					"Quel bon livre !");
+
+			System.out.println(sn);
+
+			System.out.println(sn.searchItemFilm("GOT").get(0));
+
+		}
+
+*/		
+		
+		  // Tests de rendement
+		  
+		  try { System.out.println("Ajout de 500 Membres et 5000 items....");
+		  for (int i = 1; i < 501; i++) sn.addMember("pseudo" + i, "pass" + i,
+		  "FIP"); for (int i = 1; i < 2801; i++) sn.addItemBook("pseudo1",
+		  "pass1", "Book" + i, "Fantastique", "Author" + i, 300); for (int i =
+		  1; i < 2201; i++) sn.addItemFilm("pseudo1", "pass1", "Film" + i,
+		  "Fantastique", "Director" + i, "Scenarist" + i, 300);
+		  System.out.println("Fait");
+		  
+		  long deb = System.currentTimeMillis(); sn.reviewItemBook("pseudo1",
+		  "pass1", "book2800", 5, "NICE"); long fin =
+		  System.currentTimeMillis(); System.out.println((fin - deb) / 1000F +
+		  " secondes maximum pour noter un item book");
+		  
+		  deb = System.currentTimeMillis(); sn.reviewItemBook("pseudo1",
+		  "pass1", "book2800", 5, "NICE"); fin = System.currentTimeMillis();
+		  System.out.println((fin - deb) / 1000F +
+		  " secondes maximum pour noter un item film");
+		  
+		  System.out.println("EndReview"); deb = System.currentTimeMillis();
+		  LinkedList<String> str = sn.consultItems("film2200"); fin =
+		  System.currentTimeMillis(); System.out.println((fin - deb) / 1000F +
+		  " secondes maximum pour consulter  un item ");
+		  System.out.println("EndConsult");
 		  
 		  }
 		 
-*/
-		// Tests de rendement
-
-		try {
-			System.out.println("Ajout de 500 Membres et 5000 items....");
-			for (int i = 1; i < 501; i++)
-				sn.addMember("pseudo" + i, "pass" + i, "FIP");
-			for (int i = 1; i < 2801; i++)
-				sn.addItemBook("pseudo1", "pass1", "Book" + i, "Fantastique",
-						"Author" + i, 300);
-			for (int i = 1; i < 2201; i++)
-				sn.addItemFilm("pseudo1", "pass1", "Film" + i, "Fantastique",
-						"Director" + i, "Scenarist" + i, 300);
-			System.out.println("Fait");
-
-			long deb = System.currentTimeMillis();
-			sn.reviewItemBook("pseudo1", "pass1", "book2800", 5, "NICE");
-			long fin = System.currentTimeMillis();
-			System.out.println((fin - deb) / 1000F
-					+ " secondes maximum pour noter un item book");
-
-			deb = System.currentTimeMillis();
-			sn.reviewItemBook("pseudo1", "pass1", "book2800", 5, "NICE");
-			fin = System.currentTimeMillis();
-			System.out.println((fin - deb) / 1000F
-					+ " secondes maximum pour noter un item film");
-
-			System.out.println("EndReview");
-			deb = System.currentTimeMillis();
-			LinkedList<String> str = sn.consultItems("film2200");
-			fin = System.currentTimeMillis();
-			System.out.println((fin - deb) / 1000F
-					+ " secondes maximum pour consulter  un item ");
-			System.out.println("EndConsult");
-
-		}
 
 		catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -3,6 +3,7 @@ package tests;
 import exceptions.BadEntryException;
 import exceptions.NotItemException;
 import exceptions.NotMemberException;
+import exceptions.NotReviewException;
 import exceptions.NotTestReportException;
 import exceptions.SameMemberException;
 import opinion.ISocialNetworkPremium;
@@ -58,7 +59,7 @@ public class ReviewOpinionTest {
 			return 0;
 		}
 		
-		catch (Exception e) { // An exception was thrown by addMember(), but
+		catch (Exception e) { // An exception was thrown by reviewOpinion(), but
 			// it was not the expected exception BadEntry
 			System.out.println("Err " + testId + " : unexpected exception. "
 					+ e); // Display a specific error message
@@ -84,7 +85,32 @@ public class ReviewOpinionTest {
 			return 0;
 		}
 		
-		catch (Exception e) { // An exception was thrown by addMember(), but
+		catch (Exception e) { // An exception was thrown by reviewOpinion(), but
+			// it was not the expected exception BadEntry
+			System.out.println("Err " + testId + " : unexpected exception. "
+					+ e); // Display a specific error message
+			e.printStackTrace(); // Display contextual info about what happened
+			return 1; // return error value
+		}
+		
+	}
+	
+	private static int ReviewOpinionNotReviewTest(ISocialNetworkPremium sn,
+			String login, String password, int mark, char type, String title,
+			String loginAuthor, String testId, String errorMessage){
+		try{
+			sn.reviewOpinion(login, password, mark, type, title, loginAuthor);
+			
+			System.out.println("Err " + testId + " : " + errorMessage);
+
+			return 1;
+		}
+		
+		catch(NotReviewException e){
+			return 0;
+		}
+		
+		catch (Exception e) { // An exception was thrown by reviewOpinion(), but
 			// it was not the expected exception BadEntry
 			System.out.println("Err " + testId + " : unexpected exception. "
 					+ e); // Display a specific error message
@@ -109,7 +135,7 @@ public class ReviewOpinionTest {
 			return 0;
 		}
 		
-		catch (Exception e) { // An exception was thrown by addMember(), but
+		catch (Exception e) { // An exception was thrown by reviewOpinion(), but
 			// it was not the expected exception BadEntry
 			System.out.println("Err " + testId + " : unexpected exception. "
 					+ e); // Display a specific error message
@@ -123,7 +149,17 @@ public class ReviewOpinionTest {
 			String login, String password, int mark, char type, String title,
 			String loginAuthor, String testId){
 		try{
-			sn.reviewOpinion(login, password, mark, type, title, loginAuthor);
+			float authorKarma=sn.reviewOpinion(login, password, mark, type, title, loginAuthor);
+			
+			float karmaTest=sn.reviewOpinion(login, password, mark, type, title, loginAuthor);//We do the same operation 
+																					//to see the change in karma
+			
+			if(authorKarma!=karmaTest){//if the karma changes then there is an error because we can
+										//theorically review an Opinion only one time and the karma
+										//shouldn't be updated
+				System.out.println("The karma shouldn't have changed at "+testId+" from "+authorKarma+" to "+karmaTest) ;
+				return 1;
+			}
 			return 0;
 		}
 		catch(Exception e){
@@ -202,14 +238,19 @@ public class ReviewOpinionTest {
 		nbErrors+=ReviewOpinionNotMemberTest(sn,"Member","pass",5,'b',"Sous l'orage","Serigne","2.1","Reviews by inexisting members" +
 				" are accepted !!!");
 		nbTests++;
-		nbErrors+=ReviewOpinionNotMemberTest(sn,"Serigne","wrong",5,'b',"Sous l'orage","Serigne","2.2","Reviews with wrong passwords" +
+		nbErrors+=ReviewOpinionNotMemberTest(sn,"Serigne","wrong",5,'b',"Sous l'orage","Serigne","2.2","Reviews by inexisting members" +
+				" are accepted !!!");
+		
+		
+		nbTests++;
+		nbErrors+=ReviewOpinionNotReviewTest(sn,"Pierre","pass",5,'b',"Sous l'orage","Serigne","2.3","Reviews with wrong passwords" +
 				" are accepted !!!");
 		
 		nbTests++;
-		nbErrors+=ReviewOpinionNotMemberTest(sn,"Serigne","pass",5,'b',"Sous l'orage","member","2.3","Reviews of inexisting members" +
+		nbErrors+=ReviewOpinionNotReviewTest(sn,"Serigne","pass",5,'b',"Sous l'orage","member","2.4","Reviews of inexisting members" +
 				" are accepted !!!");
 		nbTests++;
-		nbErrors+=ReviewOpinionNotMemberTest(sn,"Serigne","pass",5,'f',"GOT","Pierre","5.1","Reviews of wrong members for wrong items" +
+		nbErrors+=ReviewOpinionNotReviewTest(sn,"Serigne","pass",5,'f',"GOT","Pierre","2.5","Reviews of wrong members for wrong items" +
 				" are accepted !!!");
 		nbTests++;
 		nbErrors+=ReviewOpinionNotItemTest(sn,"Serigne","pass",5,'f',"book","member","3.1","Reviews for inexisting items" +
@@ -228,7 +269,7 @@ public class ReviewOpinionTest {
 				" are accepted !!!");
 		
 		nbTests++;
-		nbErrors+=ReviewOpinionOKTest(sn,"Serigne","pass",5,'b',"Sous l'orage","Pierre","5.1");
+		nbErrors+=ReviewOpinionOKTest(sn," serigne","pass",5,'b',"Sous l'orage"," pierre","5.1");
 		
 		
 		try{
