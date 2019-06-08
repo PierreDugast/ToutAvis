@@ -460,7 +460,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
 	}
 
 	/**
-	 * This method will search a film title in the social network without taking
+	 * This method will search a book title in the social network without taking
 	 * the case into account The descriptions of all the corresponding books
 	 * will be returned
 	 */
