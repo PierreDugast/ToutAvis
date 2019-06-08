@@ -206,7 +206,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
 			}
 
 			else {
-				if (members.get(memberIndex).getPassword() != password)
+				if (members.get(memberIndex).getPassword() .equals(password)==false)
 					throw new NotMemberException("The member " + login
 							+ " entered wrong password");
 				int jtemFilmIndex;
@@ -571,29 +571,35 @@ public class SocialNetwork implements ISocialNetworkPremium {
 		
 		  // Tests de rendement
 		  
-		  try { System.out.println("Ajout de 500 Membres et 5000 items....");
-		  for (int i = 1; i < 501; i++) sn.addMember("pseudo" + i, "pass" + i,
-		  "FIP"); for (int i = 1; i < 2801; i++) sn.addItemBook("pseudo1",
+		  try { System.out.println("Ajout de 1000 Membres et 10000 items....");
+			for (int i = 1; i < 1000; i++) sn.addMember("pseudo" + i, "pass" + i,
+		  "FIP");
+			for (int i = 1; i < 5801; i++) sn.addItemBook("pseudo1",
 		  "pass1", "Book" + i, "Fantastique", "Author" + i, 300); for (int i =
-		  1; i < 2201; i++) sn.addItemFilm("pseudo1", "pass1", "Film" + i,
+		  1; i < 4201; i++) sn.addItemFilm("pseudo1", "pass1", "Film" + i,
 		  "Fantastique", "Director" + i, "Scenarist" + i, 300);
 		  System.out.println("Fait");
 		  
 		  long deb = System.currentTimeMillis(); sn.reviewItemBook("pseudo1",
-		  "pass1", "book2800", 5, "NICE"); long fin =
+		  "pass1", "book5800", 5, "NICE"); long fin =
 		  System.currentTimeMillis(); System.out.println((fin - deb) / 1000F +
 		  " secondes maximum pour noter un item book");
 		  
-		  deb = System.currentTimeMillis(); sn.reviewItemBook("pseudo1",
-		  "pass1", "book2800", 5, "NICE"); fin = System.currentTimeMillis();
+		  deb = System.currentTimeMillis(); sn.reviewItemFilm("pseudo1",
+		  "pass1", "film4200", 5, "NICE"); fin = System.currentTimeMillis();
 		  System.out.println((fin - deb) / 1000F +
 		  " secondes maximum pour noter un item film");
 		  
 		  System.out.println("EndReview"); deb = System.currentTimeMillis();
-		  LinkedList<String> str = sn.consultItems("film2200"); fin =
+		  LinkedList<String> str = sn.consultItems("film4200"); fin =
 		  System.currentTimeMillis(); System.out.println((fin - deb) / 1000F +
 		  " secondes maximum pour consulter  un item ");
 		  System.out.println("EndConsult");
+		  
+		  deb = System.currentTimeMillis();
+		  sn.addItemBook("pseudo1", "pass1", "book5801", "fall","genre", 115); 
+		  fin = System.currentTimeMillis(); System.out.println((fin - deb) / 1000F +
+				  " secondes maximum pour ajouter un item book");
 		  
 		  }
 		 
